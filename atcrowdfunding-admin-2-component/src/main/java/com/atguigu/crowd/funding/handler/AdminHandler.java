@@ -3,6 +3,7 @@ package com.atguigu.crowd.funding.handler;
 import com.atguigu.crowd.funding.entity.Admin;
 import com.atguigu.crowd.funding.service.api.AdminService;
 import com.atguigu.crowd.funding.util.CrowdFundingConstant;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,27 @@ import javax.servlet.http.HttpSession;
 public class AdminHandler {
     @Autowired
     private AdminService adminService;
-    //推出登录
+
+    /**
+     * 分页 要配置 plugin
+     * @param pageNum 页码 默认为1
+     * @param pageSize 每页显示的数量 默认为1
+     * @param keyword 关键字 默认为空 查所有
+     * @param model 往 request 域存入数据
+     * @return admin-page 页面
+     */
+    @RequestMapping("/admin/query/for/search")
+    public String queryForSearch(
+            //如果 页面没有提供 请求参数 ，使用 defaultValue
+            @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
+            @RequestParam(value = "keyword",defaultValue = "") String keyword,
+            Model model){
+        PageInfo<Admin> adminPageInfo = adminService.queryForKeywordSearch(pageNum, pageSize, keyword);
+        model.addAttribute(CrowdFundingConstant.ATTR_NAME_PAGE_INFO, adminPageInfo);
+        return "admin-page-test";
+    }
+    //退出登录
     @RequestMapping("/admin/logout")
     public String logout(HttpSession httpSession){
         httpSession.invalidate();
@@ -39,11 +60,15 @@ public class AdminHandler {
         if (admin==null){
             //相当于往 request 域对象 存入
             model.addAttribute(CrowdFundingConstant.ATTR_NAME_MESSAGE, CrowdFundingConstant.MESSAGE_LOGIN_FAILED);
+            
             return "admin-login";
         }
+        // session 域 放入 Admin 对象
         httpSession.setAttribute(CrowdFundingConstant.ATTR_NAME_LOGIN_ADMIN, admin);
-        return "admin-main";
+        //登录成功去的页面
+        return "redirect:/admin/to/main/page.html";
     }
+
 }
 
 

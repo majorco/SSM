@@ -23,6 +23,27 @@
         <property name="configLocation" value="classpath:mybatis/mybatis.xml"/>
 <!--        mapper 配置文件位置-->
         <property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml"/>
+<!--        配置分页插件-->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+<!--                    配置插件属性-->
+                    <property name="properties">
+                        <props>
+<!--                            配置数据库方言-->
+<!--                            MYSQL 分页：limit-->
+<!--                            Oracle 分页：topN 分析-->
+
+                            <prop key="dialect">mysql</prop>
+
+<!--                            配置自动修正页码-->
+
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
 <!--   扫描接口  -->

@@ -9,6 +9,15 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="CHAR" />
   </resultMap>
+<!--  模糊查询方法    input表单name为Keyword-->
+  <select id="selectAdminListByKeyWord" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_admin where
+    login_acct like concat("%",#{keyword},"%")
+    or user_name like concat("%",#{keyword},"%")
+    or email like concat("%",#{keyword},"%")
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

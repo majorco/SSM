@@ -11,7 +11,7 @@ import com.atguigu.crowd.funding.util.CrowdFundingUtils;
 public class Test {
     @org.junit.Test
     public void testMD5ATString(){
-        String source="jeck";
+        String source="123123";
         String s = CrowdFundingUtils.md5(source);
         System.out.println(s);
     }

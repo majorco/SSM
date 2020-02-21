@@ -28,4 +28,6 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+    //模糊查询方法
+    List<Admin> selectAdminListByKeyWord(@Param("keyword") String keyword);
 }

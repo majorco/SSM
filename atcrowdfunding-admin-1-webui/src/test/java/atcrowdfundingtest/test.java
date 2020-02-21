@@ -1,6 +1,7 @@
 package atcrowdfundingtest;
 
 import com.atguigu.crowd.funding.entity.Admin;
+import com.atguigu.crowd.funding.mapper.AdminMapper;
 import com.atguigu.crowd.funding.service.api.AdminService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +28,8 @@ public class test {
     private DataSource dataSource;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private AdminMapper adminMapper;
     @Test
     public void testConnection() throws SQLException {
         Connection connection = dataSource.getConnection();
@@ -42,7 +45,19 @@ public class test {
     }
     @Test
     public void testTx(){
-        adminService.updateAdmin();
+        List<Admin> admins = adminMapper.selectAdminListByKeyWord("");
+        for (Admin admin:admins){
+            System.out.println(admin);
+        }
     }
+    @Test
+    public void insert(){
+        for(int i=0;i<20;i++){
+
+            adminMapper.insert(new Admin("accout"+i, "accout"+i,"accout"+i,i+"@qq","null"));
+        }
+    }
+
+
 
 }

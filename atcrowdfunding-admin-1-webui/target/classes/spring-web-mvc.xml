@@ -20,12 +20,14 @@
         Controller 的path 属性必须要求带扩展名
 -->
 <!--    由 index 跳至管理员登录界面 通过Dispatch 直接跳 请求是 /admin/to/login/page.html 跳至 admin-login.jsp-->
+
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
-<!--    Handler 方法处理完 允许登录后 要跳转后台页面  -->
+<!--    Handler 方法处理完 允许登录后 要去的后台页面  -->
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
-<!--    由 error界面 跳至 index 界面-->
-<!--    <mvc:view-controller path="/index-page.html" view-name="index-page"/>-->
+<!--    <mvc:view-controller path="/main.html" view-name="admin-main"/>-->
+
 <!--    注册拦截器-->
+
     <mvc:interceptors>
         <mvc:interceptor>
 <!--            配置要拦截的方法-->
@@ -39,8 +41,7 @@
             <mvc:exclude-mapping path="/admin/logout.html"/>
 <!--            跳转首页路径-->
             <mvc:exclude-mapping path="/index.html"/>
-<!--            error 跳转至首页-->
-<!--            <mvc:exclude-mapping path="/index-page.html"/>-->
+
             <bean class="com.atguigu.crowd.funding.interceptor.LoginInterceptor" id="interceptor"></bean>
 
         </mvc:interceptor>

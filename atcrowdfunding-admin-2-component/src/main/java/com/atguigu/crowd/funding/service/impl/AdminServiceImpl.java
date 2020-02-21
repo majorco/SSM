@@ -5,6 +5,8 @@ import com.atguigu.crowd.funding.entity.AdminExample;
 import com.atguigu.crowd.funding.mapper.AdminMapper;
 import com.atguigu.crowd.funding.service.api.AdminService;
 import com.atguigu.crowd.funding.util.CrowdFundingUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,7 @@ public class AdminServiceImpl implements AdminService {
         adminMapper.updateByExample(new Admin("jeck", "jeck", "杰克", "jeck@qq", null), example);
         adminMapper.updateByPrimaryKey(new Admin(1, "harry", "哈利", "harry", "harry@qq", null));
     }
-
+//    用户登录验证方法
     @Override
     public Admin login(String loginAcct, String userPswd) {
         AdminExample example=new AdminExample();
@@ -62,8 +64,22 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
 
-
-
+    /**
+     * 模糊查询方法 query spring 配置文件设置了advice
+     * @param pageNum 页码
+     * @param pageSize 每页显示的数量
+     * @param keyword 关键字
+     * @return
+     */
+    @Override
+    public PageInfo<Admin> queryForKeywordSearch(Integer pageNum,Integer pageSize,String keyword) {
+        //1.开启分页
+        PageHelper.startPage(pageNum, pageSize);
+        //2.执行分页查询
+        List<Admin> admins = adminMapper.selectAdminListByKeyWord(keyword);
+        //3.list 是pageHelper page 类型 将他封装成 pageINfo
+        return  new PageInfo<>(admins);
+    }
 
 
 }
