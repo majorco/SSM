@@ -40,7 +40,7 @@ public class AdminHandler {
             Model model){
         PageInfo<Admin> adminPageInfo = adminService.queryForKeywordSearch(pageNum, pageSize, keyword);
         model.addAttribute(CrowdFundingConstant.ATTR_NAME_PAGE_INFO, adminPageInfo);
-        return "admin-page-test";
+        return "admin-page";
     }
     //退出登录
     @RequestMapping("/admin/logout")

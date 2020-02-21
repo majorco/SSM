@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="atcrowdfundingadmin3common" />
-        <module name="atcrowdfundingadmin2component" />
         <module name="atcrowdfundingadmin1webui" />
+        <module name="atcrowdfundingadmin2component" />
+        <module name="atcrowdfundingadmin3common" />
         <module name="atcrowdfunding-reverse" />
         <module name="atcrowdfundingadmin4entity" />
       </profile>
