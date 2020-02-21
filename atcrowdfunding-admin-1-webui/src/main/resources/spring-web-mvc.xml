@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.atguigu.crowd.funding.handler,com.atguigu.crowd.funding.exception"/>
+    <!--    开始支持注解驱动-->
+    <mvc:annotation-driven/>
+<!--    试图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+  <!--  @RequestMapping("/admin/to/login/page")
+    public String toLoginPage(){
+    return "admin-login";
+    }-->
+<!--    方法配置空的 专门用来代替空的方法，实现跳转功能
+        Controller 的path 属性必须要求带扩展名
+-->
+<!--    由 index 跳至管理员登录界面 通过Dispatch 直接跳 请求是 /admin/to/login/page.html 跳至 admin-login.jsp-->
+
+    <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
+<!--    Handler 方法处理完 允许登录后 要跳转后台页面  -->
+    <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+<!--    注册拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+<!--            配置要拦截的方法-->
+            <mvc:mapping path="/**"/>
+<!--            不拦截的路径-->
+<!--            去登录页面 路径-->
+            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+<!--            提交表单 处理 方法路径-->
+            <mvc:exclude-mapping path="/admin/do/login.html"/>
+<!--            退出登录 路径-->
+            <mvc:exclude-mapping path="/admin/logout.html"/>
+<!--            跳转首页路径-->
+            <mvc:exclude-mapping path="/index.html"/>
+            <bean class="com.atguigu.crowd.funding.interceptor.LoginInterceptor" id="interceptor"></bean>
+
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>
