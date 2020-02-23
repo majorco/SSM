@@ -1,16 +1,20 @@
 package com.atguigu.crowd.funding.handler;
 
 import com.atguigu.crowd.funding.entity.Admin;
+import com.atguigu.crowd.funding.entity.ResultEntity;
 import com.atguigu.crowd.funding.service.api.AdminService;
 import com.atguigu.crowd.funding.util.CrowdFundingConstant;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @program: atcrowdfundingadmin0parent
@@ -22,6 +26,22 @@ import javax.servlet.http.HttpSession;
 public class AdminHandler {
     @Autowired
     private AdminService adminService;
+
+//    @RequestBody  获取请求体数据
+//    @ResponseBody 将数据转成Json数据发送给Brower
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/batch/remove")
+    public ResultEntity<String> batchRemove(@RequestBody List<Integer> adminIdArray){
+        try {
+            adminService.batchRemove(adminIdArray);
+
+            return ResultEntity.successWithoutData();
+        }catch (Exception e){
+
+            return ResultEntity.failed(null, e.getMessage());
+        }
+    }
 
     /**
      * 分页 要配置 plugin

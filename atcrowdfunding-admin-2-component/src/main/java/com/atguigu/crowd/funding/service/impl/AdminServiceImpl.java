@@ -81,5 +81,12 @@ public class AdminServiceImpl implements AdminService {
         return  new PageInfo<>(admins);
     }
 
+    @Override
+    public void batchRemove(List<Integer> adminIdArray) {
+        AdminExample example=new AdminExample();
+        example.createCriteria().andIdIn(adminIdArray);
+        adminMapper.deleteByExample(example);
+    }
+
 
 }

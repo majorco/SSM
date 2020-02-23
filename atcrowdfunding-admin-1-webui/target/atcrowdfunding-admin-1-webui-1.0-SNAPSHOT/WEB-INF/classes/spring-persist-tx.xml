@@ -33,10 +33,11 @@
             <tx:method name="save*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
             <tx:method name="remove*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
             <tx:method name="update*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
+            <tx:method name="batch*" propagation="REQUIRES_NEW" rollback-for="java.lang.Exception"/>
         </tx:attributes>
     </tx:advice>
 <!--    配置事务切面-->
-<aop:config>
+    <aop:config>
 <!--    切入点表达式-->
     <aop:pointcut id="txPointCut" expression="execution(* *..*Service.*(..))"/>
 <!--    将事务通知和切入点表达式关联起来-->
