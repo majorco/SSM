@@ -27,6 +27,27 @@ public class AdminHandler {
     @Autowired
     private AdminService adminService;
 
+    /**
+     * 新增操作
+     * @param admin
+     * @return 重定向到 分页 页面，避免  url 不变 导致重新提交表单
+     *
+     */
+    @RequestMapping(value = "admin/do/add.html")
+    //mvc 根据表单名字 对应的属性 封装
+    public String add(Admin admin){
+            try {
+            adminService.add(admin);
+            }catch (Exception e){
+
+                //失败返回信息
+            }
+
+            return "redirect:/admin/query/for/search.html";
+
+
+    }
+
 //    @RequestBody  获取请求体数据
 //    @ResponseBody 将数据转成Json数据发送给Brower
 

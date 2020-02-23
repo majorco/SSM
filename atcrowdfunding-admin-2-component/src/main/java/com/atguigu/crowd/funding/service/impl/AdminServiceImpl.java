@@ -81,11 +81,31 @@ public class AdminServiceImpl implements AdminService {
         return  new PageInfo<>(admins);
     }
 
+    /**
+     * 批量删除
+     * @param adminIdArray
+     */
     @Override
     public void batchRemove(List<Integer> adminIdArray) {
         AdminExample example=new AdminExample();
         example.createCriteria().andIdIn(adminIdArray);
         adminMapper.deleteByExample(example);
+    }
+
+    /**
+     * 增加人员
+     * @param admin
+     */
+    @Override
+    public void add(Admin admin) {
+        //检查账户是否存在 数量是0才允许创建，数据库给 loginAcct 设置了唯一索引
+        //加密密码
+        String password=admin.getUserPswd();
+        password = CrowdFundingUtils.md5(password);
+        admin.setUserPswd(password);
+        //写入 数据库
+
+        adminMapper.insert(admin);
     }
 
 

@@ -117,7 +117,7 @@
                         <i class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
                     <button type="button" class="btn btn-primary"
-                            style="float: right;" onclick="window.location.href='add.html'">
+                            style="float: right;" onclick="window.location.href='admin/to/add/page.html'">
                         <i class="glyphicon glyphicon-plus"></i> 新增
                     </button>
                     <br>

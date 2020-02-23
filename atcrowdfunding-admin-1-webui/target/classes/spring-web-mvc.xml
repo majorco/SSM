@@ -25,6 +25,8 @@
 <!--    Handler 方法处理完 允许登录后 要去的后台页面  -->
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
 <!--    <mvc:view-controller path="/main.html" view-name="admin-main"/>-->
+<!--    分页页面跳转到 新增页面-->
+    <mvc:view-controller path="/admin/to/add/page.html" view-name="admin-add"/>
 
 <!--    注册拦截器-->
 

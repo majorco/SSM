@@ -19,6 +19,7 @@ public class ResultEntity<T> {
     }
     // 携带查询结果
     public static <E> ResultEntity<E> successAndData(E data){
+
         return new ResultEntity<E>(SUCCESS,NO_MESSAGE,data);
     }
 //    失败 结果
