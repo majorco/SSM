@@ -6,6 +6,7 @@ import com.atguigu.crowd.funding.service.api.AdminService;
 import com.atguigu.crowd.funding.util.CrowdFundingConstant;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,33 @@ public class AdminHandler {
     @Autowired
     private AdminService adminService;
 
+    @RequestMapping("/admin/do/update")
+    public String doUpdate(Admin admin,
+                           @RequestParam("pageNum") String pageNum,
+                           @RequestParam("keyword") String keyword){
+        try {
+            adminService.updateAdmin(admin);
+        }catch (Exception e){
+            if (e instanceof DuplicateKeyException){
+                throw new RuntimeException(CrowdFundingConstant.LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+        return "redirect:/admin/query/for/search.html?pageNum="+pageNum+"&keyword="+keyword;
+    }
+
+    /**
+     * 由 admin-page 点击 小笔跳转到 更新页面
+     * @param id 主键
+     * @param model 存入 admin
+     * @return
+     */
+    @RequestMapping("/admin/to/update")
+    public String toUpdate(@RequestParam("adminId") Integer id,Model model){
+        Admin admin = adminService.getAdminById(id);
+        model.addAttribute("admin",admin);
+        return "admin-update";
+    }
+
     /**
      * 新增操作
      * @param admin
@@ -36,15 +64,15 @@ public class AdminHandler {
     @RequestMapping(value = "admin/do/add.html")
     //mvc 根据表单名字 对应的属性 封装
     public String add(Admin admin){
-            try {
+        try {
             adminService.add(admin);
-            }catch (Exception e){
-
-                //失败返回信息
+        }catch (Exception e){
+            if (e instanceof DuplicateKeyException){
+                throw new RuntimeException(CrowdFundingConstant.LOGIN_ACCT_ALREADY_IN_USE);
             }
-
-            return "redirect:/admin/query/for/search.html";
-
+        }
+        //设置最大值，新增后跳转 新增页
+        return "redirect:/admin/query/for/search.html";
 
     }
 

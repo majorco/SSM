@@ -116,10 +116,7 @@
                             style="float: right; margin-left: 10px;">
                         <i class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-primary"
-                            style="float: right;" onclick="window.location.href='admin/to/add/page.html'">
-                        <i class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
+                    <a href="admin/to/add/page.html?pageNum=${param.pageNum}&keyword=${param.keyword}" class="btn btn-primary" style="float: right;"><i class="glyphicon glyphicon-plus"></i> 新增</a>
                     <br>
                     <hr style="clear: both;">
                     <div class="table-responsive">
@@ -146,7 +143,7 @@
                                     <tr>
                                         <td>${myStatus.count }</td>
 <%--                                        遍历时 保存 主键ID  adminId 是html 本身并没有，强行设置的--%>
-                                        <td><input adminId="${admin.id }" class="itemBox" type="checkbox"></td>
+                                        <td><input adminId="${admin.id}" class="itemBox" type="checkbox"></td>
                                         <td>${admin.loginAcct }</td>
                                         <td>${admin.userName }</td>
                                         <td>${admin.email }</td>
@@ -154,9 +151,11 @@
                                             <button type="button" class="btn btn-success btn-xs">
                                                 <i class=" glyphicon glyphicon-check"></i>
                                             </button>
-                                            <button type="button" class="btn btn-primary btn-xs">
-                                                <i class=" glyphicon glyphicon-pencil"></i>
-                                            </button>
+<%--                                            更新按钮--%>
+                                            <a href="admin/to/update.html?adminId=${admin.id}&pageNum=${param.pageNum}&keyword=${param.keyword}"
+                                               class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></a>
+
+
                                             <button adminId="${admin.id}" type="button" class="btn btn-danger btn-xs itemRemoveBtn">
                                                 <i class=" glyphicon glyphicon-remove"></i>
                                             </button>

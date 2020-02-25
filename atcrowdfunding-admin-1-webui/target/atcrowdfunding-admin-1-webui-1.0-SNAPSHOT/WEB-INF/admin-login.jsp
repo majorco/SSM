@@ -39,6 +39,7 @@
         <p>${requestScope.MESSAGE}</p>
         <div class="form-group has-success has-feedback">
             <input
+                    value="harry"
                     name="loginAcct"
                     type="text"
                     class="form-control"
@@ -49,6 +50,7 @@
         </div>
         <div class="form-group has-success has-feedback">
             <input
+                    value="123123"
                     name="userPswd"
                     type="text"
                     class="form-control"

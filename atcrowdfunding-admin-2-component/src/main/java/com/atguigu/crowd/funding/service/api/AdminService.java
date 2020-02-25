@@ -12,12 +12,14 @@ import java.util.List;
  * @create: 2020-02-18 20:26
  **/
 public interface AdminService {
-    public List<Admin> getAll();
-    public void updateAdmin();
+    List<Admin> getAll();
+    void updateAdmin(Admin admin);
     Admin login(String loginAcct, String userPswd);
     PageInfo<Admin> queryForKeywordSearch(Integer pageNum,Integer pageSize,String keyword);
 
     void batchRemove(List<Integer> adminIdArray);
 
     void add(Admin admin);
+
+    Admin getAdminById(Integer id);
 }

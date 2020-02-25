@@ -14,4 +14,5 @@ public class CrowdFundingConstant {
     public static final String MESSAGE_CODE_INVALID="空的密码！";
     public static final String  MESSAGE_ACCESS_DENIED="请登录后再操作";
     public static final String ATTR_NAME_PAGE_INFO ="PAGE-INFO" ;
+    public static final String LOGIN_ACCT_ALREADY_IN_USE ="登录账户已被使用，请重新设定";
 }

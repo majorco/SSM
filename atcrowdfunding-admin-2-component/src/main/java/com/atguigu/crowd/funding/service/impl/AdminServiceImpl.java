@@ -31,12 +31,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void updateAdmin() {
-        AdminExample example=new AdminExample();
-        AdminExample.Criteria criteria = example.createCriteria();
-        criteria.andUserNameEqualTo("poter");
-        adminMapper.updateByExample(new Admin("jeck", "jeck", "杰克", "jeck@qq", null), example);
-        adminMapper.updateByPrimaryKey(new Admin(1, "harry", "哈利", "harry", "harry@qq", null));
+    public void updateAdmin(Admin admin) {
+        String password=admin.getUserPswd();
+        String md5 = CrowdFundingUtils.md5(password);
+        admin.setUserPswd(md5);
+        adminMapper.updateByPrimaryKey(admin);
     }
 //    用户登录验证方法
     @Override
@@ -106,6 +105,18 @@ public class AdminServiceImpl implements AdminService {
         //写入 数据库
 
         adminMapper.insert(admin);
+    }
+
+    /**
+     * 根据主键查询 admin 用于 更新时表单回显
+     * @param id
+     * @return
+     */
+    @Override
+    public Admin getAdminById(Integer id) {
+
+        return adminMapper.selectByPrimaryKey(id);
+
     }
 
 
