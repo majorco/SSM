@@ -10,6 +10,7 @@
 <script type="text/javascript" src="script/my-admin.js"></script>
 <script type="text/javascript">
     $(function() {
+        layer.msg("hello layer..");
         //声明全局变量 在 my-admin.js 中取 因为 js 是 游览器 解析的 不能使用 Jsp 表达式
         //游览器发请求->服务器解析请求->服务器编译 Jsp.java ，响应给 游览器,js 代码完全有游览器解析
         window.totalRecord =${requestScope['PAGE-INFO'].total};

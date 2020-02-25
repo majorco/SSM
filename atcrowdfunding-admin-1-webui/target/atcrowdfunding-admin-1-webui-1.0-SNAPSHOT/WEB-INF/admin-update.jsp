@@ -39,6 +39,7 @@
                             <label>用户昵称</label>
                             <form:input path="userName" cssClass="form-control" cssStyle="width: 150px;"/>
                         </div>
+
                         <div class="form-group">
                             <label>邮箱</label>
                             <form:input path="email" cssClass="form-control" cssStyle="width: 150px;"/>
