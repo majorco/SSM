@@ -77,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
         //2.执行分页查询
         List<Admin> admins = adminMapper.selectAdminListByKeyWord(keyword);
         //3.list 是pageHelper page 类型 将他封装成 pageINfo
-        return  new PageInfo<>(admins);
+        return new PageInfo<>(admins);
     }
 
     /**

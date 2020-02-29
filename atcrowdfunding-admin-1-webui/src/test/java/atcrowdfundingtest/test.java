@@ -1,7 +1,9 @@
 package atcrowdfundingtest;
 
 import com.atguigu.crowd.funding.entity.Admin;
+import com.atguigu.crowd.funding.entity.Role;
 import com.atguigu.crowd.funding.mapper.AdminMapper;
+import com.atguigu.crowd.funding.mapper.RoleMapper;
 import com.atguigu.crowd.funding.service.api.AdminService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +32,8 @@ public class test {
     private AdminService adminService;
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private RoleMapper roleMapper;
     @Test
     public void testConnection() throws SQLException {
         Connection connection = dataSource.getConnection();
@@ -55,6 +59,12 @@ public class test {
         for(int i=0;i<20;i++){
 
             adminMapper.insert(new Admin("AA"+i, "accout"+i,"accout"+i,i+"@qq","null"));
+        }
+    }
+    @Test
+    public void insertRoleMapper(){
+        for(int i=0;i<20;i++){
+            roleMapper.insert(new Role(null, "AA"+i));
         }
     }
 

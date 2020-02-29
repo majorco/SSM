@@ -32,8 +32,8 @@
             color: #C00;
         }
     </style>
-
     <script src="jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="script/docs.min.js"></script>
     <script type="text/javascript">
@@ -50,5 +50,5 @@
             });
         });
     </script>
-    <script src="layer/layer.js"></script>
+
 </head>

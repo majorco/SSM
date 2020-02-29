@@ -43,7 +43,6 @@
                     name="loginAcct"
                     type="text"
                     class="form-control"
-                    id="inputSuccess4"
                     placeholder="请输入登录账号"
                     autofocus>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -54,7 +53,6 @@
                     name="userPswd"
                     type="text"
                     class="form-control"
-                    id="inputSuccess4"
                     placeholder="请输入登录密码"
                     style="margin-top:10px;">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -62,5 +60,20 @@
         <button class="btn btn-lg btn-success btn-block">登录</button>
     </form>
 </div>
+
+
+
+
+<%--<script type="text/javascript">--%>
+<%--    $(function(){--%>
+<%--        $("#testModalBtn").click(function () {--%>
+<%--            $("#testModal").modal("show");--%>
+<%--        });--%>
+<%--    });--%>
+
+<%--</script>--%>
+<%--<button id="testModalBtn" class="btn btn-lg btn-success btn-block">测试模态框</button>--%>
+<%--&lt;%&ndash;模态框&ndash;%&gt;--%>
+
 </body>
 </html>

@@ -1,0 +1,84 @@
+
+中间表：
+设置主键方式：1，新增一列在作为ID
+2.使用联合主键
+多个字段联合起来共同构成主键，
+单个值可以有重复值，但是组合必须是唯一的
+
+Ajax：
+1.像提交普通表单一样提交数据
+游览器代码：
+//想表单一样发送数据，不把 Json对象转换为 Json 字符串
+var requestBody={
+empID:"999"
+
+}
+$(function(){
+$("#button").click(funtcion(){
+$.ajax({
+url: "ajax/send/form/data",
+type:"post"
+data: requestBody
+//默认值 ，可以省略  -form表示以表单提交
+contentType:"application/x-www-form-urlencoded"
+dataType:"json"
+"success" : function(response){
+// response 已经解析为Json对象
+var result=response.result;
+if("SUCCESS"==result){
+alert("SUCCESS");
+
+error : function(){
+alert(response);
+}
+}
+
+}
+
+})
+
+})
+})
+<button id="button" enctype="application/x-www-form-urlencoded">点我发送数据(像表单一样)
+
+</button>
+
+Handler 代码
+
+@RequestMapping("///")
+public ResultEntity<String> receiveFormData(Emp emp){
+
+return Result.succesWithoutData()
+}
+2.整个请求体是json数据
+$.(ajax){
+contentType: application/json;charset="utf-8"
+data: Json.stringgrfy(varJson)
+}
+
+前端工程师，跟后端对接
+1.服务器渲染
+请求-》handler-》转发-》模板（Jsp freemarker，thymeleaf）-》渲染（执行模板动态部分）-》模板哄的动态部分被替换为了具体的值-》{响应体（响应头，状态行）}-》响应
+前端开发静态页面，开发完成，交给后端工程师。
+
+2.前后端分离
+前端静态页面-》异步请求获取数据（Json格式）-》handler 方法返回 Json 数据
+对接模式：
+项目启动时：前端跟后端开会 确定Json数据详细格式，字段，类型，作用，必须
+前端工程师 无需等着后端完成 使用mock.js
+提供假数据测试，
+后端完成部署到测试服务器，前端连接测试服务器 测试真是数据，（联调）
+
+
+layer（层，表层，层次） 弹层组件
+每个页面都用到 ，在head.jsp 包含
+2.使用 layer.message("提示的值")
+
+
+1.关于*.html跟*.json
+如果请求的是 html 服务器返回了 json 数据的话，发生 Could not find acceptable representation
+将返回Json 数据的请求扩展名，设置为 *.json 或 Tomcat 无法识别的扩展名
+
+2.点击查询后，获取keyword 赋值给全局变量 keyword ，调用showPage
+
+jQuery DOM 操作动态生成的标签，这种标签用原来的 click() 函数绑定单击，绑定不上

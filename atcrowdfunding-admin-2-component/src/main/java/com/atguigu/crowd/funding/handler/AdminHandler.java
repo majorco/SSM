@@ -28,6 +28,13 @@ public class AdminHandler {
     @Autowired
     private AdminService adminService;
 
+    /**
+     * 更新数据
+     * @param admin
+     * @param pageNum
+     * @param keyword
+     * @return
+     */
     @RequestMapping("/admin/do/update")
     public String doUpdate(Admin admin,
                            @RequestParam("pageNum") String pageNum,
@@ -79,6 +86,11 @@ public class AdminHandler {
 //    @RequestBody  获取请求体数据
 //    @ResponseBody 将数据转成Json数据发送给Brower
 
+    /**
+     * 批量删除
+     * @param adminIdArray
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/admin/batch/remove")
     public ResultEntity<String> batchRemove(@RequestBody List<Integer> adminIdArray){

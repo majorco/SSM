@@ -27,8 +27,9 @@
 <!--    <mvc:view-controller path="/main.html" view-name="admin-main"/>-->
 <!--    分页页面跳转到 新增页面-->
     <mvc:view-controller path="/admin/to/add/page.html" view-name="admin-add"/>
-
-<!--    注册拦截器-->
+<!--    主页面跳转至角色维护-->
+    <mvc:view-controller path="/admin/to/Role/page.html" view-name="admin-role"/>
+    <!--    注册拦截器-->
 
     <mvc:interceptors>
         <mvc:interceptor>

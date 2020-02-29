@@ -10,7 +10,6 @@
 <script type="text/javascript" src="script/my-admin.js"></script>
 <script type="text/javascript">
     $(function() {
-        layer.msg("hello layer..");
         //声明全局变量 在 my-admin.js 中取 因为 js 是 游览器 解析的 不能使用 Jsp 表达式
         //游览器发请求->服务器解析请求->服务器编译 Jsp.java ，响应给 游览器,js 代码完全有游览器解析
         window.totalRecord =${requestScope['PAGE-INFO'].total};
@@ -35,10 +34,10 @@
         $("#batchRemoveBtn").click(function () {
             //存储 loginAcct 用于 删除数据是显示
             var loginAcctArray=new Array();
-            // 创建一个数组对象
+            // 创建一个数组对象,储存 Id 发送给服务器删除
             var adminIdArray=new Array();
-            // 拿到数据对应的id 删除  通过 jquery 选择器 定位到被选中 itemBox 然后遍历
 
+            // 拿到数据对应的id 删除  通过 jquery 选择器 定位到被选中 itemBox 然后遍历
             $(".itemBox:checked").each(function () {
             <%-- <input adminId="${admin.id }" class="itemBox" type="checkbox"> --%>
             //     将this转换成jQuery对象
@@ -56,6 +55,7 @@
                 alert("你还没勾选数据，傻逼");
                 return ;
             }
+
             //给出 提示
             var confirmResult = window.confirm("您真的要删除"+loginAcctArray+"吗，操作不可逆，请谨慎决定!");
             //用户点击了取消  本来返回 true
@@ -143,7 +143,7 @@
                                            var="admin" varStatus="myStatus">
                                     <tr>
                                         <td>${myStatus.count }</td>
-<%--                                        遍历时 保存 主键ID  adminId 是html 本身并没有，强行设置的--%>
+<%--                                        遍历时 保存 主键ID 便于后续删除操作获取主键  adminId 是html 本身并没有，强行设置的--%>
                                         <td><input adminId="${admin.id}" class="itemBox" type="checkbox"></td>
                                         <td>${admin.loginAcct }</td>
                                         <td>${admin.userName }</td>
