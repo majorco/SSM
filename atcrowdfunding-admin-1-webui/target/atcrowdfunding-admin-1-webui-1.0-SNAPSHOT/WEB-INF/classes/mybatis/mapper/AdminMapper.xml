@@ -17,7 +17,6 @@
     login_acct like concat("%",#{keyword},"%")
     or user_name like concat("%",#{keyword},"%")
     or email like concat("%",#{keyword},"%")
-
   </select>
   <sql id="Example_Where_Clause" >
     <where >

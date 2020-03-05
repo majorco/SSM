@@ -10,7 +10,9 @@ function showPage() {
 	
 	// 给服务器发送请求获取分页数据：PageInfo
 	var pageInfo = getPageInfo();
-
+	if (pageInfo == null){
+		return ;
+	}
 	// 在页面上的表格中tbody标签内显示分页的主体数据
 	generateTableBody(pageInfo);
 	
@@ -70,31 +72,18 @@ function generateTableBody(pageInfo) {
 	
 	// 判断list是否有效
 	if(list == null || list.length == 0) {
+
 		$("#roleTableBody").append("<tr><td colspan='4' style='text-align:center;'>没有查询到数据！</td></tr>");
 		
 		return ;
 	}
-	
-	/*
-<tr>
-	<td>1</td>
-	<td><input type='checkbox'></td>
-	<td>PM - 项目经理</td>
-	<td>
-		<button type='button' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>
-		<button type='button' class='btn btn-primary btn-xs'><i class=' glyphicon glyphicon-pencil'></i></button>
-		<button type='button' class='btn btn-danger btn-xs'><i class=' glyphicon glyphicon-remove'></i></button>
-	</td>
-</tr>
-	 */
-	
 	for(var i = 0; i < list.length; i++) {
 
 		var role = list[i];
 		
 		var checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>";
-		var pencilBtn = "<button type='button' class='btn btn-primary btn-xs'><i class=' glyphicon glyphicon-pencil'></i></button>";
-		var removeBtn = "<button type='button' class='btn btn-danger btn-xs'><i class=' glyphicon glyphicon-remove'></i></button>";
+		var pencilBtn = "<button roleID='"+role.id+"'type='button' class='btn btn-primary btn-xs updateBtn'><i class=' glyphicon glyphicon-pencil'></i></button>";
+		var removeBtn = "<button roleID='"+role.id+"' type='button' class='btn btn-danger btn-xs removeBtn'><i class=' glyphicon glyphicon-remove'></i></button>";
 		
 		var numberTd = "<td>"+(i+1)+"</td>";
 		var checkBoxTd = "<td><input roleid='"+role.id+"' class='checkItemBox' type='checkbox'></td>";
@@ -131,6 +120,7 @@ function pageselectCallback(pageIndex,jq) {
 
 	// 将全局变量中的pageNum修改为最新值
 	// pageIndex从0开始，pageNum从1开始
+	//这里分页数目加上后 发送给服务器调用
 	window.pageNum = pageIndex + 1;
 	
 	// 调用分页函数重新执行分页

@@ -1,7 +1,10 @@
 package com.atguigu.crowd.funding.interceptor;
 
 import com.atguigu.crowd.funding.entity.Admin;
+import com.atguigu.crowd.funding.entity.ResultEntity;
 import com.atguigu.crowd.funding.util.CrowdFundingConstant;
+import com.atguigu.crowd.funding.util.CrowdFundingUtils;
+import com.google.gson.Gson;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +34,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         Admin admin = (Admin) session.getAttribute(CrowdFundingConstant.ATTR_NAME_LOGIN_ADMIN);
         //如果为空 说明没登陆
         if (admin==null){
+            //检查是否为异步请求
+            boolean asyncRequested = CrowdFundingUtils.checkAsyncRequested(request);
+            if (asyncRequested){
+                ResultEntity<String> resultEntity=ResultEntity.failed(ResultEntity.NO_DATA,CrowdFundingConstant.MESSAGE_ACCESS_DENIED);
+                Gson gson=new Gson();
+                String json = gson.toJson(resultEntity);
+                response.setContentType("application/json;charset=utf-8");
+                response.getWriter().write(json);
+                return false;
+            }
+
             //在 request 域对象放个 错误 消息，
             request.setAttribute(CrowdFundingConstant.ATTR_NAME_MESSAGE, CrowdFundingConstant.MESSAGE_ACCESS_DENIED);
             //转发到 登录页面 路径：

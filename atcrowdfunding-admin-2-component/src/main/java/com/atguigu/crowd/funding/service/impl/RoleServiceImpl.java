@@ -55,4 +55,16 @@ public class RoleServiceImpl implements RoleService {
         criteria.andIdIn(idArray);
         roleMapper.deleteByExample(roleExample);
     }
+
+    @Override
+    public boolean insertRoleByName(String name) {
+        int insert = roleMapper.insert(new Role(null, name));
+        return insert>0 ? true:false;
+    }
+
+    @Override
+    public boolean updateRoleByID(Role role) {
+        int update = roleMapper.updateByPrimaryKey(role);
+        return update>0 ? true:false;
+    }
 }

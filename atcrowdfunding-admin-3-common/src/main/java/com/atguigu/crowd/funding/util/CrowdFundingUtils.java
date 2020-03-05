@@ -1,5 +1,6 @@
 package com.atguigu.crowd.funding.util;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -12,6 +13,20 @@ import java.util.Map;
  * @create: 2020-02-19 17:17
  **/
 public class CrowdFundingUtils {
+    /**
+     * 根据 Accept and X-Request-With 检查是否是异步请求
+     * @param request
+     * @return
+     */
+    public static boolean checkAsyncRequested(HttpServletRequest request){
+        String accept=request.getHeader("Accept");
+        String XRequestedWith=request.getHeader("X-Requested-With");
+        if ((stringEffective(accept)&&accept.contains("application/json"))
+                || (stringEffective(XRequestedWith)&&XRequestedWith.contains("XMLHttpRequest"))){
+            return true;
+        }
+        return false;
+    }
     /**
      * 检测 map 是否可用
      * @param map

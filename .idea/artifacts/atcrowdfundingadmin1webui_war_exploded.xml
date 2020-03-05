@@ -40,6 +40,7 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.7.7" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.2" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.2" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
           <element id="archive" name="atcrowdfunding-admin-4-entity-1.0-SNAPSHOT.jar">
             <element id="module-output" name="atcrowdfundingadmin4entity" />
           </element>

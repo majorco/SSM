@@ -17,4 +17,8 @@ public interface RoleService {
     List<Role> selectByIdList(List<Integer> roleIdArray);
 
     void deleteByIdArray(List<Integer> idArray);
+
+    boolean insertRoleByName(String name);
+
+    boolean updateRoleByID(Role role);
 }

@@ -9,7 +9,7 @@
     select
     <include refid="Base_Column_List"/>
     from t_role where id like concat("%",#{keyword},"%") or name like concat("%",#{keyword},"%")
-
+    order by id desc
   </select>
   <sql id="Example_Where_Clause" >
     <where >

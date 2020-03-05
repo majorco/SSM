@@ -82,3 +82,73 @@ layer（层，表层，层次） 弹层组件
 2.点击查询后，获取keyword 赋值给全局变量 keyword ，调用showPage
 
 jQuery DOM 操作动态生成的标签，这种标签用原来的 click() 函数绑定单击，绑定不上
+
+
+ajax form 表单跟 ajax json 数据提交 ：
+默认 contentType: application/x-www-form-urlencoded
+form : date {key : value,key : value}
+json contentType : application/json;charset=utf-8
+data : JSONStringify(data)
+requestBody : 按照Json格式解析请求体
+responseBody ：不会经过试图解析器，将返回值直接返回给游览器
+
+
+每个方法上都有 @responseBody 可以将 responseBody 放在 类上
+@Controller
+@ResponseBody
+class A{
+}
+进而可以改造为：
+@RestController
+class A{
+
+}
+
+异常处理：
+CrowdFundingExceptionResolver
+只能返回页面,不能针对 ajax 请求返回 json 格式数据，
+如果 ajax 请求中，抛出了异常，返回界面，所以 ajax 请求无法正常进行工作
+
+异步请求特点：
+Request Headers
+Accept: application/json    ***
+Accept Encoding : gzip
+Accept-Language : zh-CN
+Cache- Control : no-cache
+Content-Length : 11
+Content-Type : application/json;charset=utf-8
+Cookie:
+Host : localhost:8080
+origin : http://localhost:8080
+Referer :
+(用户代理)
+User-Agent :
+X-Requested-With : XMLHttpRequest
+
+
+@ControllerAdvice
+Spring 异常再 handler 方法发生异常后 进行响应处理 ，因为 是Controller 调用 service -》mapper ，
+由于再 service 跟 mapper 中不进行异常处理，所以会一层一层抛给调用者，最终 Controller 发生异常，
+由@ControllerAdvice 捕获处理
+由于 同步跟异步请求的差异，同步请求可以直接返回错误界面
+Ajax请求处理过程中，如果抛出异常，返回异常信息页面，Ajax程序无法正常解析，
+导致页面不能正常显示和工作，也不能给出友好的错误提示。
+
+根据 Accept 跟 X-Requested-With 判断是否是异步请求，发生 异常时 返回 JSON 数据
+
+拦截器 ：
+ 也需要判断是否是异步请求
+ 异步也返回的时 页面，此时再 Google 的 preview 中可以看到返回的页面，但是游览器不会正常解析
+
+
+
+
+
+
+
+
+
+
+
+
+
