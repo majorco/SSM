@@ -29,6 +29,9 @@
     <mvc:view-controller path="/admin/to/add/page.html" view-name="admin-add"/>
 <!--    主页面跳转至角色维护-->
     <mvc:view-controller path="/admin/to/Role/page.html" view-name="admin-role"/>
+<!--    跳到菜单-->
+    <mvc:view-controller path="/admin/to/menu.html" view-name="admin-menu"/>
+
     <!--    注册拦截器-->
 
     <mvc:interceptors>

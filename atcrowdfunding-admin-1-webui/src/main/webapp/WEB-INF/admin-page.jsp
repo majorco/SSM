@@ -2,85 +2,87 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="UTF-8">
-<%@ include file="/WEB-INF/include-head.jsp"%>
-<link rel="stylesheet" href="css/pagination.css" />
-<script type="text/javascript" src="jquery/jquery-pagination.js"></script>
-<%--引入外部的 JavaScript 文件 注意引入文件的顺序--%>
-<%--a.js 用到了 b.js 中的函数 那么引入的顺序 b.js -> a.js--%>
-<script type="text/javascript" src="script/my-admin.js"></script>
-<script type="text/javascript">
-    $(function() {
-        //声明全局变量 在 my-admin.js 中取 因为 js 是 游览器 解析的 不能使用 Jsp 表达式
-        //游览器发请求->服务器解析请求->服务器编译 Jsp.java ，响应给 游览器,js 代码完全有游览器解析
-        window.totalRecord =${requestScope['PAGE-INFO'].total};
-        window.pageSize =${requestScope['PAGE-INFO'].pageSize};
-        window.pageNum =${requestScope['PAGE-INFO'].pageNum};
-        //从请求参数取 不加 “ ” 会认为是变量 AA 不是字符串 “AA”
-        window.keyword ="${param.keyword}";
-        // 对分页导航条显示进行初始化
-        initPagination();
-        //全选，全不选功能
-        $("#summaryBox").click(function () {
-            //获取当前 勾选状态
-            //this 代表当前多选框对象（DOM对象）
-            //checked true 勾选，反之
-            var checkStatus=this.checked;
-            //使用checkStatus 设置 itemBox状态
-           /* attr函数 只能设置一次
-            prop 能多次*/
-            $(".itemBox").prop("checked",this.checked)
-        });
-        // 给 批量删除 按钮绑定单击响应函数
-        $("#batchRemoveBtn").click(function () {
-            //存储 loginAcct 用于 删除数据是显示
-            var loginAcctArray=new Array();
-            // 创建一个数组对象,储存 Id 发送给服务器删除
-            var adminIdArray=new Array();
-
-            // 拿到数据对应的id 删除  通过 jquery 选择器 定位到被选中 itemBox 然后遍历
-            $(".itemBox:checked").each(function () {
-            <%-- <input adminId="${admin.id }" class="itemBox" type="checkbox"> --%>
-            //     将this转换成jQuery对象
-            //     this.adminId 拿不到值 ，原因：this 是DOM 对象无法读取HTML标签没有的属性
-                var adminId=$(this).attr("adminId");
-                // 将数据存入到数组
-                adminIdArray.push(adminId);
-
-               var loginAcct= $(this).parent("td").next().text();
-               //将账户名称 存入数组
-               loginAcctArray.push(loginAcct);
+<head>
+    <%@ include file="/WEB-INF/include-head.jsp" %>
+    <link rel="stylesheet" href="css/pagination.css" />
+    <script type="text/javascript" src="jquery/jquery-pagination.js"></script>
+    <%--引入外部的 JavaScript 文件 注意引入文件的顺序--%>
+    <%--a.js 用到了 b.js 中的函数 那么引入的顺序 b.js -> a.js--%>
+    <script type="text/javascript" src="script/my-admin.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            //声明全局变量 在 my-admin.js 中取 因为 js 是 游览器 解析的 不能使用 Jsp 表达式
+            //游览器发请求->服务器解析请求->服务器编译 Jsp.java ，响应给 游览器,js 代码完全有游览器解析
+            window.totalRecord =${requestScope['PAGE-INFO'].total};
+            window.pageSize =${requestScope['PAGE-INFO'].pageSize};
+            window.pageNum =${requestScope['PAGE-INFO'].pageNum};
+            //从请求参数取 不加 “ ” 会认为是变量 AA 不是字符串 “AA”
+            window.keyword ="${param.keyword}";
+            // 对分页导航条显示进行初始化
+            initPagination();
+            //全选，全不选功能
+            $("#summaryBox").click(function () {
+                //获取当前 勾选状态
+                //this 代表当前多选框对象（DOM对象）
+                //checked true 勾选，反之
+                var checkStatus=this.checked;
+                //使用checkStatus 设置 itemBox状态
+                /* attr函数 只能设置一次
+                 prop 能多次*/
+                $(".itemBox").prop("checked",this.checked)
             });
-            //检查 数组是否包含有效数据 ，没数据不发请求
-            if (adminIdArray.length ==0){
-                alert("你还没勾选数据，傻逼");
-                return ;
-            }
+            // 给 批量删除 按钮绑定单击响应函数
+            $("#batchRemoveBtn").click(function () {
+                //存储 loginAcct 用于 删除数据是显示
+                var loginAcctArray=new Array();
+                // 创建一个数组对象,储存 Id 发送给服务器删除
+                var adminIdArray=new Array();
 
-            //给出 提示
-            var confirmResult = window.confirm("您真的要删除"+loginAcctArray+"吗，操作不可逆，请谨慎决定!");
-            //用户点击了取消  本来返回 true
-            if(!confirmResult){
-                return;
-            }
+                // 拿到数据对应的id 删除  通过 jquery 选择器 定位到被选中 itemBox 然后遍历
+                $(".itemBox:checked").each(function () {
+                    <%-- <input adminId="${admin.id }" class="itemBox" type="checkbox"> --%>
+                    //     将this转换成jQuery对象
+                    //     this.adminId 拿不到值 ，原因：this 是DOM 对象无法读取HTML标签没有的属性
+                    var adminId=$(this).attr("adminId");
+                    // 将数据存入到数组
+                    adminIdArray.push(adminId);
 
-            // 这是 GET 请求 拼的串有 大小限制
-            //  window.location.href="admin/batch/remove.html?adminId=2&adminId=3&adminId=4"
-            //发送 Ajax 请求，两种方式：提交表单，整个请求体
-            batchRemove(adminIdArray);
+                    var loginAcct= $(this).parent("td").next().text();
+                    //将账户名称 存入数组
+                    loginAcctArray.push(loginAcct);
+                });
+                //检查 数组是否包含有效数据 ，没数据不发请求
+                if (adminIdArray.length ==0){
+                    alert("你还没勾选数据，傻逼");
+                    return ;
+                }
+
+                //给出 提示
+                var confirmResult = window.confirm("您真的要删除"+loginAcctArray+"吗，操作不可逆，请谨慎决定!");
+                //用户点击了取消  本来返回 true
+                if(!confirmResult){
+                    return;
+                }
+
+                // 这是 GET 请求 拼的串有 大小限制
+                //  window.location.href="admin/batch/remove.html?adminId=2&adminId=3&adminId=4"
+                //发送 Ajax 请求，两种方式：提交表单，整个请求体
+                batchRemove(adminIdArray);
+            });
+            //给单条删除按钮响应单击响应函数
+            $(".itemRemoveBtn").click(function () {
+                var adminID=$(this).attr("adminId");
+                //获取当前记录的 loginAcct
+                var loginAcct=$(this).parents("tr").children("td:eq(2)").text();
+                var confirmResult=confirm("真的要删除"+loginAcct+"吗");
+                if (!confirmResult){return;}
+                var adminArray=new Array();
+                adminArray.push(adminID);
+                batchRemove(adminArray);
+            });
         });
-        //给单条删除按钮响应单击响应函数
-        $(".itemRemoveBtn").click(function () {
-            var adminID=$(this).attr("adminId");
-            //获取当前记录的 loginAcct
-            var loginAcct=$(this).parents("tr").children("td:eq(2)").text();
-            var confirmResult=confirm("真的要删除"+loginAcct+"吗");
-            if (!confirmResult){return;}
-            var adminArray=new Array();
-            adminArray.push(adminID);
-            batchRemove(adminArray);
-        });
-    });
-</script>
+    </script>
+</head>
 <body>
 <%@ include file="/WEB-INF/include-nav.jsp"%>
 <div class="container-fluid">
