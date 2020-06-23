@@ -84,13 +84,14 @@
             //单条删除
 
             //$(动态元素所依附的静态元素).on(事件类型,具体要绑定事件的动态元素的选择器,处理函数)
+
             $("#roleTableBody").on("click",".removeBtn",function () {
                 var roleID=$(this).attr("roleID");
                 window.IdArray=new Array();
                 IdArray.push(roleID);
                 showRemoveConfirmModal();
                 //提交模态框 OK
-                $("#modalOK").click(function () {
+                $("#modalOK").unbind('click').bind('click',(function () {
                     var idArray=window.IdArray;
                     var ajaxResult= $.ajax({
                         url : "do/deleteRole/byIdArray.json",
@@ -108,12 +109,14 @@
                                 layer.msg(response.message);
                             }
                             $("#confirmModal").modal('hide');
+
                         },
                         error : function (response) {
                             layer.msg(response.message);
+
                         }
                     });
-                });
+                }));
 
             });
 
@@ -139,14 +142,12 @@
                             var result = response.result;
 
                             if(result == "SUCCESS") {
-                                window.keyword=name.charAt(0);
                                 window.pageNum=1;
                                 showPage();
                                 layer.msg("操作成功！");
                             }
                             if(result == "FAILED") {
                                 layer.msg(response.message);
-                                window.keyword=name.charAt(0);
                                 showPage();
                             }
 

@@ -14,18 +14,18 @@ public class Menu {
 
     private String icon;
 
-    private List<Menu> childrenList =new ArrayList<Menu>();
+    private List<Menu> children =new ArrayList<Menu>();
 
     public Menu(){
 
     }
 
-    public List<Menu> getChildrenList() {
-        return childrenList;
+    public List<Menu> getChildren() {
+        return children;
     }
 
-    public void setChildrenList(List<Menu> childrenList) {
-        this.childrenList = childrenList;
+    public void setChildren(List<Menu> children) {
+        this.children = children;
     }
 
     public Menu(Integer id, Integer pid, String name, String url, String icon) {
@@ -44,7 +44,7 @@ public class Menu {
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", icon='" + icon + '\'' +
-                ", childrenList=" + childrenList +
+                ", children=" + children +
                 '}';
     }
 

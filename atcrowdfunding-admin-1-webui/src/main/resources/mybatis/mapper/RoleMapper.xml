@@ -5,12 +5,40 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
+
+  <select id="selectAssignByAdminId" resultMap="BaseResultMap">
+    select id ,name from t_role where id in (
+    <include refid="t_inner_admin_roleByAdminId"/>
+    )
+  </select>
+
+  <select id="selectUnAssignByAdminId" resultMap="BaseResultMap">
+    select id ,name from t_role where id not in (
+    <include refid="t_inner_admin_roleByAdminId"/>
+    )
+  </select>
+
   <select id="selectByKeyword" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from t_role where id like concat("%",#{keyword},"%") or name like concat("%",#{keyword},"%")
     order by id desc
   </select>
+
+  <insert id="insertRoleAssign">
+    insert into t_inner_admin_role (admin_id , role_id) values
+    <foreach collection="roleIdList" separator="," item="roleId">
+      (#{adminId,jdbcType=INTEGER},#{roleId,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+
+  <delete id="deleteExistedRoleAssign">
+    delete  from t_inner_admin_role where admin_id = #{adminId}
+  </delete>
+  
+  <sql id="t_inner_admin_roleByAdminId">
+    select role_id from t_inner_admin_role where admin_id = #{adminId,jdbcType=INTEGER}
+  </sql>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

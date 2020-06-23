@@ -151,9 +151,10 @@
                                         <td>${admin.userName }</td>
                                         <td>${admin.email }</td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-xs">
-                                                <i class=" glyphicon glyphicon-check"></i>
-                                            </button>
+<%--                                            分配角色按钮--%>
+                                            <a href="admin/to/assign/page.html?adminId=${admin.id}&pageNum=${param.pageNum}&keyword=${param.keyword}"
+                                               class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i>
+                                            </a>
 <%--                                            更新按钮--%>
                                             <a href="admin/to/update.html?adminId=${admin.id}&pageNum=${param.pageNum}&keyword=${param.keyword}"
                                                class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></a>

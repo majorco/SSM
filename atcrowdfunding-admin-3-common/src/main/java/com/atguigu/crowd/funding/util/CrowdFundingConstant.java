@@ -20,7 +20,7 @@ public class CrowdFundingConstant {
     public static final String LOGIN_ACCT_ALREADY_IN_USE ="登录账户已被使用，请重新设定";
     public static final Map<String,String> EXCEPTION_MESSAGE_MAP = new HashMap<>();
     static {
-        EXCEPTION_MESSAGE_MAP.put("org.springframework.dao.DuplicateKeyException", "用户名已经存在");
+        EXCEPTION_MESSAGE_MAP.put("org.springframework.dao.DuplicateKeyException", "名称已经存在");
 
     }
 }

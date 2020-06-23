@@ -72,7 +72,7 @@
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atguigu.crowd.funding.entity.MenuExample" >
     select
     <if test="distinct" >
-      distinct
+      distinc
     </if>
     <include refid="Base_Column_List" />
     from t_menu
@@ -202,7 +202,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.crowd.funding.entity.Menu" >
     update t_menu
-    set pid = #{pid,jdbcType=INTEGER},
+    set
       name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR}

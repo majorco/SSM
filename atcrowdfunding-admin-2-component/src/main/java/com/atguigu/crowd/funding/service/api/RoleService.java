@@ -21,4 +21,11 @@ public interface RoleService {
     boolean insertRoleByName(String name);
 
     boolean updateRoleByID(Role role);
+
+    List<Role> getAssignByAdminId(Integer adminId);
+
+    List<Role> getUnAssignByAdminId(Integer adminId);
+
+
+    void updateAssignByAdminId(Integer adminId, List<Integer> roles);
 }

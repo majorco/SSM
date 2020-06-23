@@ -4,6 +4,7 @@ import com.atguigu.crowd.funding.entity.Role;
 import com.atguigu.crowd.funding.entity.RoleExample;
 import com.atguigu.crowd.funding.mapper.RoleMapper;
 import com.atguigu.crowd.funding.service.api.RoleService;
+import com.atguigu.crowd.funding.util.CrowdFundingUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,28 @@ public class RoleServiceImpl implements RoleService {
     public boolean updateRoleByID(Role role) {
         int update = roleMapper.updateByPrimaryKey(role);
         return update>0 ? true:false;
+    }
+
+    @Override
+    public List<Role> getAssignByAdminId(Integer adminId) {
+        List<Role> assignList = roleMapper.selectAssignByAdminId(adminId);
+        return assignList;
+    }
+
+    @Override
+    public List<Role> getUnAssignByAdminId(Integer adminId) {
+       List<Role> unAssign= roleMapper.selectUnAssignByAdminId(adminId);
+        return unAssign;
+    }
+
+
+    @Override
+    public void updateAssignByAdminId(Integer adminId, List<Integer> roles) {
+        //先删除
+        roleMapper.deleteExistedRoleAssign(adminId);
+        //在根据表单提供的 角色 id 跟 adminId 添加
+        if (CrowdFundingUtils.collectionEffective(roles)) {
+            roleMapper.insertRoleAssign(adminId, roles);
+        }
     }
 }

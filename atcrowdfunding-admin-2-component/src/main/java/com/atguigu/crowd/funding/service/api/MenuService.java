@@ -13,4 +13,12 @@ import java.util.List;
 public interface MenuService {
 
     List<Menu> getAll();
+
+    void saveMenu(Menu menu);
+
+    Menu getById(Integer menuId);
+
+    void updateById(Menu menu);
+
+    void deleteById(Integer id);
 }
