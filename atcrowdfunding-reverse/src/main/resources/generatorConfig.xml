@@ -14,7 +14,7 @@
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
 		<jdbcConnection 
 			driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/productdb"
+			connectionURL="jdbc:mysql://localhost:3306/crowdfunding"
 			userId="root"
 			password="root">
 		</jdbcConnection>
@@ -50,6 +50,6 @@
 		</javaClientGenerator>
 
 		<!-- 数据库表名字和我们的entity类对应的映射指定 -->
-		<table tableName="t_menu" domainObjectName="Menu" />
+		<table tableName="t_auth" domainObjectName="Auth" />
 	</context>
 </generatorConfiguration>

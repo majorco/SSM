@@ -215,10 +215,11 @@
 
             });
 
-
-
-
-
+           $("#roleTableBody").on("click",".checkBtn",function(){
+            window.roleID=$(this).attr("roleID");
+            $("#roleAssignAuthModal").modal("show");
+            console.log("cao");
+        });
 
         });
     </script>
@@ -229,6 +230,7 @@
 <%@ include file="/WEB-INF/include-modal-role-confirm.jsp"%>
 <%@ include file="/WEB-INF/include-modal-role-insert.jsp"%>
 <%@ include file="/WEB-INF/include-modal-role-update.jsp"%>
+<%@ include file="/WEB-INF/include-modal-assign-auth.jsp"%>
 <body>
 
 <%@ include file="/WEB-INF/include-nav.jsp"%>
