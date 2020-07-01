@@ -3,9 +3,14 @@
 <html lang="UTF-8">
 <head>
     <%@ include file="/WEB-INF/include-head.jsp" %>
+    <link rel="stylesheet" href="ztree/zTreeStyle.css"/>
+    <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
+    <link rel="stylesheet" href="css/pagination.css"/>
+    <script type="text/javascript" src="jquery/jquery-pagination.js"></script>
     <script type="text/javascript" src="script/my-role.js"></script>
+
     <script type="text/javascript">
-        $(function(){
+        $(function () {
 
             // 调用分页参数初始化方法
             initGlobalVariable();
@@ -15,12 +20,12 @@
             //查询按钮函数
             $("#searchBtn").click(function () {
                 //获取文本框数据
-                var keyword=$.trim($("#keywordInput").val());
+                var keyword = $.trim($("#keywordInput").val());
                 //检测是否有效
-                if (keyword == null || keyword == ""){
-                    window.keyword="";
+                if (keyword == null || keyword == "") {
+                    window.keyword = "";
                     showPage();
-                }else {
+                } else {
                     window.keyword = keyword;
                     showPage();
                 }
@@ -28,49 +33,49 @@
 
             //全选
             $("#checkAllBox").click(function () {
-                var statusCheckAllBox=this.checked;
-                $(".checkItemBox").prop("checked",this.checked);
+                var statusCheckAllBox = this.checked;
+                $(".checkItemBox").prop("checked", this.checked);
             });
 
             //批量删除
             $("#batchRemove").click(function () {
                 //存入全局变量
-                window.IdArray=new Array();
+                window.IdArray = new Array();
 
                 $(".checkItemBox:checked").each(function () {
-                    var id=$(this).attr("roleid");
+                    var id = $(this).attr("roleid");
                     IdArray.push(id);
                 });
-                if (IdArray==null || IdArray.length<1){
+                if (IdArray == null || IdArray.length < 1) {
                     layer.msg("选择数据，傻逼");
-                    return ;
+                    return;
                 }
                 //调用 拼模态框的函数
                 showRemoveConfirmModal();
                 //提交模态框 OK
-                $("#modalOK").unbind('click').bind('click',(function () {
-                    var idArray=window.IdArray;
+                $("#modalOK").unbind('click').bind('click', (function () {
+                    var idArray = window.IdArray;
                     $.ajax({
-                        url : "do/deleteRole/byIdArray.json",
-                        type : "post",
-                        data : JSON.stringify(idArray),
-                        dataType : "json",
-                        contentType : "application/json;charset=UTF-8",
-                        success : function (response) {
+                        url: "do/deleteRole/byIdArray.json",
+                        type: "post",
+                        data: JSON.stringify(idArray),
+                        dataType: "json",
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (response) {
                             var result = response.result;
                             if (result == "SUCCESS") {
                                 showPage();
                                 $("#confirmModal").modal('hide');
                                 layer.msg("delete succeed");
-                                return ;
+                                return;
                             }
-                            if (result == "FAILED"){
+                            if (result == "FAILED") {
                                 $("#confirmModal").modal('hide');
                                 layer.msg(response.message);
                                 return;
                             }
                         },
-                        error : function (response) {
+                        error: function (response) {
                             $("#confirmModal").modal('hide');
                             layer.msg(response.message);
                         },
@@ -85,33 +90,33 @@
 
             //$(动态元素所依附的静态元素).on(事件类型,具体要绑定事件的动态元素的选择器,处理函数)
 
-            $("#roleTableBody").on("click",".removeBtn",function () {
-                var roleID=$(this).attr("roleID");
-                window.IdArray=new Array();
+            $("#roleTableBody").on("click", ".removeBtn", function () {
+                var roleID = $(this).attr("roleID");
+                window.IdArray = new Array();
                 IdArray.push(roleID);
                 showRemoveConfirmModal();
                 //提交模态框 OK
-                $("#modalOK").unbind('click').bind('click',(function () {
-                    var idArray=window.IdArray;
-                    var ajaxResult= $.ajax({
-                        url : "do/deleteRole/byIdArray.json",
-                        type : "post",
-                        data : JSON.stringify(idArray),
-                        dataType : "json",
-                        contentType : "application/json;charset=UTF-8",
-                        success : function (response) {
+                $("#modalOK").unbind('click').bind('click', (function () {
+                    var idArray = window.IdArray;
+                    var ajaxResult = $.ajax({
+                        url: "do/deleteRole/byIdArray.json",
+                        type: "post",
+                        data: JSON.stringify(idArray),
+                        dataType: "json",
+                        contentType: "application/json;charset=UTF-8",
+                        success: function (response) {
                             var result = response.result;
                             if (result == "SUCCESS") {
                                 showPage();
                                 layer.msg("delete succeed");
                             }
-                            if (result == "FAILED"){
+                            if (result == "FAILED") {
                                 layer.msg(response.message);
                             }
                             $("#confirmModal").modal('hide');
 
                         },
-                        error : function (response) {
+                        error: function (response) {
                             layer.msg(response.message);
 
                         }
@@ -122,31 +127,31 @@
 
             //新增按钮
 
-            $("#insertRole").unbind('click').bind('click',(function () {
+            $("#insertRole").unbind('click').bind('click', (function () {
                 $("#addModal").modal("show");
-                $("#ok").unbind('click').bind('click',(function () {
-                    var name=$.trim($("#roleNameInput").val());
-                    if (name == null || name == ""){
+                $("#ok").unbind('click').bind('click', (function () {
+                    var name = $.trim($("#roleNameInput").val());
+                    if (name == null || name == "") {
                         layer.msg("输入名字，傻逼");
                         return;
                     }
                     $.ajax({
-                        url : "do/save/role.json",
-                        type : "post",
-                        data : {
-                            name : name
+                        url: "do/save/role.json",
+                        type: "post",
+                        data: {
+                            name: name
                         },
-                        dataType : "json",
-                        success:function(response){
+                        dataType: "json",
+                        success: function (response) {
 
                             var result = response.result;
 
-                            if(result == "SUCCESS") {
-                                window.pageNum=1;
+                            if (result == "SUCCESS") {
+                                window.pageNum = 1;
                                 showPage();
                                 layer.msg("操作成功！");
                             }
-                            if(result == "FAILED") {
+                            if (result == "FAILED") {
                                 layer.msg(response.message);
                                 showPage();
                             }
@@ -158,7 +163,7 @@
                             $("#roleNameInput").val("");
 
                         },
-                        "error":function(response){
+                        "error": function (response) {
                             layer.msg(response.message);
                         }
                     });
@@ -168,44 +173,44 @@
             }));
 
             //跟新操作 点击小缸壁时
-            $("#roleTableBody").on("click",".updateBtn",function () {
-                window.roleID=$(this).attr("roleID");
+            $("#roleTableBody").on("click", ".updateBtn", function () {
+                window.roleID = $(this).attr("roleID");
                 var name = $(this).parents("tr").children("td:eq(2)").text();
                 $("#roleNameInputEdit").val(name);
                 $("#editModal").modal("show");
             });
 
             //点击提交时
-            $("#editModalBtn").unbind('click').bind('click',function () {
-                var name=$("#roleNameInputEdit").val();
-                if (name == null || name == ""){
+            $("#editModalBtn").unbind('click').bind('click', function () {
+                var name = $("#roleNameInputEdit").val();
+                if (name == null || name == "") {
                     layer.msg("输入有效的用户名,傻逼!");
-                    return ;
+                    return;
                 }
                 $.ajax({
-                    url : "do/updateRole/byID.json",
-                    type : "post",
-                    data : {
-                        id : roleID,
-                        name : name
+                    url: "do/updateRole/byID.json",
+                    type: "post",
+                    data: {
+                        id: roleID,
+                        name: name
                     },
-                    dataType : "json",
-                    success : function (response) {
-                        var result=response.result;
-                        if (result == "SUCCESS"){
+                    dataType: "json",
+                    success: function (response) {
+                        var result = response.result;
+                        if (result == "SUCCESS") {
                             showPage();
                             $("#editModal").modal("hide");
                             layer.msg("update success!");
                             return;
                         }
-                        if (result == "FAILED"){
+                        if (result == "FAILED") {
                             showPage();
                             $("#editModal").modal("hide");
                             layer.msg(response.message);
                             return;
                         }
                     },
-                    error : function (response) {
+                    error: function (response) {
                         layer.msg(response.message);
                     }
 
@@ -214,29 +219,118 @@
 
 
             });
+            //点击 正方形按钮时，打开模态框
+            $("#roleTableBody").on("click", ".checkBtn", function () {
+                window.AuthRoleID = $(this).attr("roleID");
+                $("#roleAssignAuthModal").modal("show");
+                //设置zTree setting
+                var setting = {
+                    "data":{
+                        "simpleData":{
+                            "enable":true,
+                            "pIdKey":"categoryId",
+                        },
+                        "key":{
+                            "name":"title"
+                        }
+                    },
+                    "check":{
+                        "enable":true
+                    }
+                };
 
-           $("#roleTableBody").on("click",".checkBtn",function(){
-            window.roleID=$(this).attr("roleID");
-            $("#roleAssignAuthModal").modal("show");
-            console.log("cao");
-        });
+                //获取JSON数据显示 Ztree
+                var ajaxResult = $.ajax({
+                    url: "assign/get/all/auth.json",
+                    type: "post",
+                    dateType: "json",
+                    async: false,
+                    success: function (response) {
+
+                        if (response.message == "FAILED") {
+                            layer.msg(result.message);
+                            return;
+                        }
+                        var zNodes = response.data;
+                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                        //全部展开
+                        $.fn.zTree.getZTreeObj("treeDemo").expandAll(true);
+                    }
+                });
+
+               var ajaxResult= $.ajax({
+                    url:"assign/get/assigned/auth/id/list.json",
+                    type:"post",
+                    data:{
+                        "AuthRoleId":$(this).attr("roleID"),
+                        "random": Math.random()
+                    },
+                    dataType:"json",
+                    async:false
+                });
+
+                if(ajaxResult.responseJSON.result=="FAILED") {
+                    layer.msg(ajaxResult.responseJSON.message);
+                    return ;
+                }
+                // 根据获取到的 authID 勾选在Tree 多选框
+                var authList = ajaxResult.responseJSON.data;
+                for(var i=0;i<authList.length;i++){
+                    var authId=authList[i];
+                    //根据authid 查询到一个具体的树形节点
+                    var key="id";
+
+                  var treeNode =  $.fn.zTree.getZTreeObj("treeDemo").getNodeByParam(key,authId);
+
+                    $.fn.zTree.getZTreeObj("treeDemo").checkNode(treeNode,true,false);
+                }
+
+
+            });
+
+            //点击分配按钮
+            $("#roleAssignAuthBtn").click(function () {
+                var authIdArray=new Array();
+              var checkedNodes =  $.fn.zTree.getZTreeObj("treeDemo").getCheckedNodes();
+              for(var i=0;i<checkedNodes.length;i++){
+                  var node = checkedNodes[i];
+                  var authId=node.id;
+                  authIdArray.push(authId);
+
+              }
+              console.log(authIdArray);
+              var requestBody={"roleIdList":[window.AuthRoleID],"authList":authIdArray};
+              var ajaxResult=$.ajax({
+                  url:"assign/do/assign.json",
+                  type:"post",
+                  data:JSON.stringify(requestBody),
+                  contentType:"application/json;charset=UTF-8",
+                  dataType:"json",
+                  async:false
+              });
+              if (ajaxResult.responseJSON.result=="SUCCESS"){
+                  layer.msg("操作成功");
+              }
+              if (ajaxResult.responseJSON.result=="FAILED"){
+                  layer.msg(ajaxResult.responseJSON.message+"请重试");
+              }
+              $("#roleAssignAuthModal").modal("hide");
+            });
 
         });
     </script>
-    <link rel="stylesheet" href="css/pagination.css"/>
-    <script type="text/javascript" src="jquery/jquery-pagination.js"></script>
 
 </head>
-<%@ include file="/WEB-INF/include-modal-role-confirm.jsp"%>
-<%@ include file="/WEB-INF/include-modal-role-insert.jsp"%>
-<%@ include file="/WEB-INF/include-modal-role-update.jsp"%>
-<%@ include file="/WEB-INF/include-modal-assign-auth.jsp"%>
+<%@ include file="/WEB-INF/include-modal-role-confirm.jsp" %>
+<%@ include file="/WEB-INF/include-modal-role-insert.jsp" %>
+<%@ include file="/WEB-INF/include-modal-role-update.jsp" %>
+<%@ include file="/WEB-INF/include-modal-assign-auth.jsp" %>
 <body>
 
-<%@ include file="/WEB-INF/include-nav.jsp"%>
+<%@ include file="/WEB-INF/include-nav.jsp" %>
 <div class="container-fluid">
     <div class="row">
-        <%@ include file="/WEB-INF/include-sidebar.jsp"%>
+        <%@ include file="/WEB-INF/include-sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="panel panel-default">
                 <div class="panel-heading">

@@ -3,6 +3,7 @@ package com.atguigu.crowd.funding.service.api;
 import com.atguigu.crowd.funding.entity.Auth;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: atcrowdfundingadmin0parent
@@ -12,4 +13,8 @@ import java.util.List;
  **/
 public interface AuthService {
     List<Auth> getAllAuth();
+
+    List<Integer> getAssignIdList(Integer roleId);
+
+    void updateRelationShipBetweenRoleAndAuth(Map<String, List<Integer>> assignDateMap);
 }

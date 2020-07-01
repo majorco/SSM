@@ -81,9 +81,9 @@ function generateTableBody(pageInfo) {
 
 		var role = list[i];
 		
-		var checkBtn = "<button roleID='"+role.id+"' type='button' class='btn btn-success btn-xs checkBtn'><i class=' glyphicon glyphicon-check'></i></button>";
+		var checkBtn = "<button  roleID='"+role.id+"'type='button' class='btn btn-success btn-xs checkBtn'><i class=' glyphicon glyphicon-check'></i></button>";
 		var pencilBtn = "<button roleID='"+role.id+"'type='button' class='btn btn-primary btn-xs updateBtn'><i class=' glyphicon glyphicon-pencil'></i></button>";
-		var removeBtn = "<button roleID='"+role.id+"' type='button' class='btn btn-danger btn-xs removeBtn'><i class=' glyphicon glyphicon-remove'></i></button>";
+		var removeBtn = "<button roleID='"+role.id+"'type='button' class='btn btn-danger btn-xs removeBtn'><i class=' glyphicon glyphicon-remove'></i></button>";
 		
 		var numberTd = "<td>"+(i+1)+"</td>";
 		var checkBoxTd = "<td><input roleid='"+role.id+"' class='checkItemBox' type='checkbox'></td>";
@@ -183,3 +183,4 @@ function showRemoveConfirmModal() {
 	}
 
 }
+
