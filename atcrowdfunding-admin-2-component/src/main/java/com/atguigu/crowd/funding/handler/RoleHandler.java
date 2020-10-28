@@ -5,6 +5,7 @@ import com.atguigu.crowd.funding.entity.Role;
 import com.atguigu.crowd.funding.service.api.RoleService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ public class RoleHandler {
     @Autowired
     private RoleService roleService;
 
+    @PreAuthorize("hasRole('部长')")
     @RequestMapping(value = "/admin/query/forRole/search")
     public ResultEntity<PageInfo<Role>> queryForKeyword(
             @RequestParam(value = "keyword", defaultValue = "") String keyword,

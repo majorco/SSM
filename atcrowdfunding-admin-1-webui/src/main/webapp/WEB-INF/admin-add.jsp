@@ -21,6 +21,7 @@
                 <div class="panel-heading">表单数据</div>
                 <div class="panel-body">
                     <form role="form" action="admin/do/add.html" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <div class="form-group">
                             <label for="exampleInputloginAcct">登录账号</label>
                             <input
@@ -62,7 +63,7 @@
                                     id="exampleInputEmail1"
                                     placeholder="xxxx@xxxx.com">
                         </div>
-                        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-edit"></i> 修改</button>
+                        <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-edit"></i> 增加</button>
                         <button type="reset" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
                     </form>
                 </div>

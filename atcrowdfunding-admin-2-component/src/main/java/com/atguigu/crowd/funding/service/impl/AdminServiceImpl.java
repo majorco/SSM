@@ -8,6 +8,7 @@ import com.atguigu.crowd.funding.util.CrowdFundingUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,9 +24,12 @@ import java.util.Objects;
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public List<Admin> getAll() {
+
         AdminExample example=new AdminExample();
         return adminMapper.selectByExample(example);
     }
@@ -100,7 +104,7 @@ public class AdminServiceImpl implements AdminService {
         //检查账户是否存在 数量是0才允许创建，数据库给 loginAcct 设置了唯一索引
         //加密密码
         String password=admin.getUserPswd();
-        password = CrowdFundingUtils.md5(password);
+        password = bCryptPasswordEncoder.encode(password);
         admin.setUserPswd(password);
         //写入 数据库
 
@@ -117,6 +121,15 @@ public class AdminServiceImpl implements AdminService {
 
         return adminMapper.selectByPrimaryKey(id);
 
+    }
+
+    @Override
+    public Admin getAdminByLoginAccount(String username) {
+        AdminExample example = new AdminExample();
+        AdminExample.Criteria criteria = example.createCriteria();
+        criteria.andLoginAcctEqualTo(username);
+        List<Admin> admins = adminMapper.selectByExample(example);
+        return admins.get(0);
     }
 
 

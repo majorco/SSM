@@ -34,4 +34,7 @@ public interface AuthMapper {
     void deleteOldRelationShip(Integer roleId);
 
     void insertNewRelationShip(@Param("roleId")Integer roleId, @Param("authList") List<Integer> authList);
+
+   List<String> selectAssignedAuthNameBuAdminId(Integer adminId);
+
 }

@@ -34,22 +34,22 @@
 
     <!--    注册拦截器-->
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-<!--            配置要拦截的方法-->
-            <mvc:mapping path="/**"/>
-<!--            不拦截的路径-->
-<!--            去登录页面 路径-->
-            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
-<!--            提交表单 处理 方法路径-->
-            <mvc:exclude-mapping path="/admin/do/login.html"/>
-<!--            退出登录 路径-->
-            <mvc:exclude-mapping path="/admin/logout.html"/>
-<!--            跳转首页路径-->
-            <mvc:exclude-mapping path="/index.html"/>
+<!--    <mvc:interceptors>-->
+<!--        <mvc:interceptor>-->
+<!--&lt;!&ndash;            配置要拦截的方法&ndash;&gt;-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--&lt;!&ndash;            不拦截的路径&ndash;&gt;-->
+<!--&lt;!&ndash;            去登录页面 路径&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/admin/to/login/page.html"/>-->
+<!--&lt;!&ndash;            提交表单 处理 方法路径&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/admin/do/login.html"/>-->
+<!--&lt;!&ndash;            退出登录 路径&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/admin/logout.html"/>-->
+<!--&lt;!&ndash;            跳转首页路径&ndash;&gt;-->
+<!--            <mvc:exclude-mapping path="/index.html"/>-->
 
-            <bean class="com.atguigu.crowd.funding.interceptor.LoginInterceptor" id="interceptor"></bean>
+<!--            <bean class="com.atguigu.crowd.funding.interceptor.LoginInterceptor" id="interceptor"></bean>-->
 
-        </mvc:interceptor>
-    </mvc:interceptors>
+<!--        </mvc:interceptor>-->
+<!--    </mvc:interceptors>-->
 </beans>

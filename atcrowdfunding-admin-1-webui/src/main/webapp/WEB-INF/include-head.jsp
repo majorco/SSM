@@ -6,7 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+    <meta name="_csrf" content="${_csrf.token}"/>
+        <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+        <!-- ... -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -47,6 +50,15 @@
                         $("ul", this).show("fast");
                     }
                 }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(function () {
+            $(document).ajaxSend(function (e,xhr,options) {
+                xhr.setRequestHeader(header,token);
             });
         });
     </script>

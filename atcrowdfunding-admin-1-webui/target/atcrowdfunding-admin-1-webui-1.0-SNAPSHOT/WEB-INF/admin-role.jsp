@@ -10,6 +10,7 @@
     <script type="text/javascript" src="script/my-role.js"></script>
 
     <script type="text/javascript">
+
         $(function () {
 
             // 调用分页参数初始化方法
@@ -142,6 +143,7 @@
                             name: name
                         },
                         dataType: "json",
+
                         success: function (response) {
 
                             var result = response.result;

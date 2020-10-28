@@ -17,4 +17,22 @@ public interface AuthService {
     List<Integer> getAssignIdList(Integer roleId);
 
     void updateRelationShipBetweenRoleAndAuth(Map<String, List<Integer>> assignDateMap);
+
+    List<String> getAssignedAuthNameByAdminId(Integer roleId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

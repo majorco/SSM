@@ -34,9 +34,12 @@
 </nav>
 
 <div class="container">
-    <form class="form-signin" role="form" action="admin/do/login.html" method="post">
+    <form class="form-signin" role="form" action="${pageContext.request.contextPath}/do/login.html" method="post">
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i>管理员登录</h2>
         <p>${requestScope.MESSAGE}</p>
+        <p>${SPRING_SECURITY_LAST_EXCEPTION}</p>
         <div class="form-group has-success has-feedback">
             <input
                     value="harry"
