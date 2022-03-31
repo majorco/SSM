@@ -15,7 +15,7 @@
         <module>atcrowdfunding-admin-4-entity</module>
     </modules>
     <properties>
-        <atguigu.spring.version>4.3.20.RELEASE</atguigu.spring.version>
+        <atguigu.spring.version>5.3.18</atguigu.spring.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
